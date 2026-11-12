@@ -1,0 +1,12 @@
+{
+  "teste_d0": "TESTE teste_d0 {nome} {produto} {data}",
+  "teste_d7": "TESTE teste_d7 {nome} {produto} {data}",
+  "teste_d21": "TESTE teste_d21 {nome} {produto} {data}",
+  "teste_d28": "TESTE teste_d28 {nome} {produto} {data}",
+  "filtro_aviso": "TESTE filtro_aviso {nome} {produto} {data} 1) {horario1} 2) {horario2} 3) {horario3}",
+  "filtro_confirmacao": "TESTE filtro_confirmacao {nome} {produto} {data} {horario1}",
+  "filtro_upsell_shower": "TESTE filtro_upsell_shower {nome} {produto} {data}",
+  "cobranca_d0": "TESTE cobranca_d0 {nome} {produto} {data}",
+  "cobranca_d3": "TESTE cobranca_d3 {nome} {produto} {data}",
+  "cobranca_d7": "TESTE cobranca_d7 {nome} {produto} {data}"
+}

@@ -1,0 +1,10 @@
+[
+  {"id": "c1", "nome": "Ana Ferreira", "cidade": "Lisboa", "produto": "APOLLO", "tipo": "teste", "inicio_teste": "2026-11-12", "data_instalacao": "2026-11-12", "ultima_troca_filtro": null, "pagamento_falhou_em": null},
+  {"id": "c2", "nome": "Rui Costa", "cidade": "Porto", "produto": "APOLLO", "tipo": "teste", "inicio_teste": "2026-10-25", "data_instalacao": "2026-10-25", "ultima_troca_filtro": null, "pagamento_falhou_em": null},
+  {"id": "c3", "nome": "Marta Sousa", "cidade": "Braga", "produto": "APOLLO", "tipo": "teste", "inicio_teste": "2026-11-05", "data_instalacao": "2026-11-05", "ultima_troca_filtro": null, "pagamento_falhou_em": null},
+  {"id": "c4", "nome": "João Almeida", "cidade": "Coimbra", "produto": "APOLLO", "tipo": "aluguer", "inicio_teste": null, "data_instalacao": "2024-11-20", "ultima_troca_filtro": "2025-11-20", "pagamento_falhou_em": null},
+  {"id": "c5", "nome": "Inês Rodrigues", "cidade": "Faro", "produto": "APOLLO", "tipo": "aluguer", "inicio_teste": null, "data_instalacao": "2025-12-05", "ultima_troca_filtro": null, "pagamento_falhou_em": null},
+  {"id": "c6", "nome": "Pedro Martins", "cidade": "Setúbal", "produto": "APOLLO", "tipo": "aluguer", "inicio_teste": null, "data_instalacao": "2026-03-10", "ultima_troca_filtro": null, "pagamento_falhou_em": "2026-11-12"},
+  {"id": "c7", "nome": "Sofia Carvalho", "cidade": "Aveiro", "produto": "APOLLO", "tipo": "aluguer", "inicio_teste": null, "data_instalacao": "2026-05-18", "ultima_troca_filtro": null, "pagamento_falhou_em": "2026-11-24"},
+  {"id": "c8", "nome": "Tiago Pereira", "cidade": "Évora", "produto": "APOLLO", "tipo": "aluguer", "inicio_teste": null, "data_instalacao": "2024-12-10", "ultima_troca_filtro": "2025-12-10", "pagamento_falhou_em": null}
+]

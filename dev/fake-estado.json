@@ -1,0 +1,276 @@
+{
+ "data": "2026-12-03",
+ "dia": 21,
+ "clientes": [
+  {
+   "id": "c1",
+   "nome": "Ana Ferreira",
+   "cidade": "Lisboa",
+   "produto": "APOLLO",
+   "tipo": "teste",
+   "inicio_teste": "2026-11-12",
+   "data_instalacao": "2026-11-12",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": null
+  },
+  {
+   "id": "c2",
+   "nome": "Rui Costa",
+   "cidade": "Porto",
+   "produto": "APOLLO",
+   "tipo": "teste",
+   "inicio_teste": "2026-10-25",
+   "data_instalacao": "2026-10-25",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": null
+  },
+  {
+   "id": "c3",
+   "nome": "Marta Sousa",
+   "cidade": "Braga",
+   "produto": "APOLLO",
+   "tipo": "teste",
+   "inicio_teste": "2026-11-05",
+   "data_instalacao": "2026-11-05",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": null
+  },
+  {
+   "id": "c4",
+   "nome": "João Almeida",
+   "cidade": "Coimbra",
+   "produto": "APOLLO",
+   "tipo": "aluguer",
+   "inicio_teste": null,
+   "data_instalacao": "2024-11-20",
+   "ultima_troca_filtro": "2025-11-20",
+   "pagamento_falhou_em": null
+  },
+  {
+   "id": "c5",
+   "nome": "Inês Rodrigues",
+   "cidade": "Faro",
+   "produto": "APOLLO",
+   "tipo": "aluguer",
+   "inicio_teste": null,
+   "data_instalacao": "2025-12-05",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": null
+  },
+  {
+   "id": "c6",
+   "nome": "Pedro Martins",
+   "cidade": "Setúbal",
+   "produto": "APOLLO",
+   "tipo": "aluguer",
+   "inicio_teste": null,
+   "data_instalacao": "2026-03-10",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": "2026-11-12"
+  },
+  {
+   "id": "c7",
+   "nome": "Sofia Carvalho",
+   "cidade": "Aveiro",
+   "produto": "APOLLO",
+   "tipo": "aluguer",
+   "inicio_teste": null,
+   "data_instalacao": "2026-05-18",
+   "ultima_troca_filtro": null,
+   "pagamento_falhou_em": "2026-11-24"
+  },
+  {
+   "id": "c8",
+   "nome": "Tiago Pereira",
+   "cidade": "Évora",
+   "produto": "APOLLO",
+   "tipo": "aluguer",
+   "inicio_teste": null,
+   "data_instalacao": "2024-12-10",
+   "ultima_troca_filtro": "2025-12-10",
+   "pagamento_falhou_em": null
+  }
+ ],
+ "eventos": [
+  {
+   "cliente_id": "c1",
+   "regua": "teste",
+   "chave": "teste_d21",
+   "texto": "[dev] Ana, faltam 7 dias para terminar o seu mês grátis do APOLLO (termina a 10/12/2026)."
+  },
+  {
+   "cliente_id": "c3",
+   "regua": "teste",
+   "chave": "teste_d28",
+   "texto": "[dev] Último dia do seu mês grátis, Marta!\nPara continuar com o APOLLO por 1€/dia*, responda SIM.\n*condições em voa.com.pt"
+  },
+  {
+   "cliente_id": "c8",
+   "regua": "filtro",
+   "chave": "filtro_aviso",
+   "texto": "[dev] Olá Tiago, está quase na hora de trocar o filtro do seu APOLLO. Escolha um horário:\n1) 2ª feira 10h\n2) 3ª feira 15h\n3) 5ª feira 11h"
+  }
+ ],
+ "linha_do_tempo": [
+  {
+   "cliente_id": "c1",
+   "regua": "teste",
+   "chave": "teste_d0",
+   "texto": "[dev] Olá Ana! Bem-vinda à família VOA 💧\nO seu APOLLO já está instalado. Durante 30 dias a água ionizada é por nossa conta.\nQualquer dúvida, responda a esta mensagem.",
+   "dia": 0,
+   "data": "2026-11-12"
+  },
+  {
+   "cliente_id": "c3",
+   "regua": "teste",
+   "chave": "teste_d7",
+   "texto": "[dev] Marta, já passou uma semana com o APOLLO. Como está a correr? Responda com uma nota de 1 a 5.",
+   "dia": 0,
+   "data": "2026-11-12"
+  },
+  {
+   "cliente_id": "c6",
+   "regua": "cobranca",
+   "chave": "cobranca_d0",
+   "texto": "[dev] Olá Pedro, não conseguimos cobrar a mensalidade do aluguer do APOLLO. Pode regularizar aqui: https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 0,
+   "data": "2026-11-12"
+  },
+  {
+   "cliente_id": "c4",
+   "regua": "filtro",
+   "chave": "filtro_aviso",
+   "texto": "[dev] Olá João, está quase na hora de trocar o filtro do seu APOLLO. Escolha um horário:\n1) 2ª feira 10h\n2) 3ª feira 15h\n3) 5ª feira 11h",
+   "dia": 1,
+   "data": "2026-11-13"
+  },
+  {
+   "cliente_id": "c4",
+   "regua": "filtro",
+   "chave": "filtro_confirmacao",
+   "texto": "[dev] Combinado, João! O técnico VOA passa na 2ª feira às 10h para trocar o filtro. ✅",
+   "dia": 2,
+   "data": "2026-11-14"
+  },
+  {
+   "cliente_id": "c2",
+   "regua": "teste",
+   "chave": "teste_d21",
+   "texto": "[dev] Rui, faltam 7 dias para terminar o seu mês grátis do APOLLO (termina a 22/11/2026).",
+   "dia": 3,
+   "data": "2026-11-15"
+  },
+  {
+   "cliente_id": "c6",
+   "regua": "cobranca",
+   "chave": "cobranca_d3",
+   "texto": "[dev] Pedro, lembrete: a mensalidade do APOLLO continua pendente. Link: https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 3,
+   "data": "2026-11-15"
+  },
+  {
+   "cliente_id": "c1",
+   "regua": "teste",
+   "chave": "teste_d7",
+   "texto": "[dev] Ana, já passou uma semana com o APOLLO. Como está a correr? Responda com uma nota de 1 a 5.",
+   "dia": 7,
+   "data": "2026-11-19"
+  },
+  {
+   "cliente_id": "c6",
+   "regua": "cobranca",
+   "chave": "cobranca_d7",
+   "texto": "[dev] Último aviso, Pedro: regularize a mensalidade do APOLLO para manter o serviço. https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 7,
+   "data": "2026-11-19"
+  },
+  {
+   "cliente_id": "c4",
+   "regua": "filtro",
+   "chave": "filtro_upsell_shower",
+   "texto": "[dev] João, filtro trocado! Sabia que o SHOWER ATHENA leva a mesma água para o seu duche? Responda QUERO para saber mais.",
+   "dia": 9,
+   "data": "2026-11-21"
+  },
+  {
+   "cliente_id": "c2",
+   "regua": "teste",
+   "chave": "teste_d28",
+   "texto": "[dev] Último dia do seu mês grátis, Rui!\nPara continuar com o APOLLO por 1€/dia*, responda SIM.\n*condições em voa.com.pt",
+   "dia": 10,
+   "data": "2026-11-22"
+  },
+  {
+   "cliente_id": "c7",
+   "regua": "cobranca",
+   "chave": "cobranca_d0",
+   "texto": "[dev] Olá Sofia, não conseguimos cobrar a mensalidade do aluguer do APOLLO. Pode regularizar aqui: https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 12,
+   "data": "2026-11-24"
+  },
+  {
+   "cliente_id": "c3",
+   "regua": "teste",
+   "chave": "teste_d21",
+   "texto": "[dev] Marta, faltam 7 dias para terminar o seu mês grátis do APOLLO (termina a 03/12/2026).",
+   "dia": 14,
+   "data": "2026-11-26"
+  },
+  {
+   "cliente_id": "c7",
+   "regua": "cobranca",
+   "chave": "cobranca_d3",
+   "texto": "[dev] Sofia, lembrete: a mensalidade do APOLLO continua pendente. Link: https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 15,
+   "data": "2026-11-27"
+  },
+  {
+   "cliente_id": "c5",
+   "regua": "filtro",
+   "chave": "filtro_aviso",
+   "texto": "[dev] Olá Inês, está quase na hora de trocar o filtro do seu APOLLO. Escolha um horário:\n1) 2ª feira 10h\n2) 3ª feira 15h\n3) 5ª feira 11h",
+   "dia": 16,
+   "data": "2026-11-28"
+  },
+  {
+   "cliente_id": "c5",
+   "regua": "filtro",
+   "chave": "filtro_confirmacao",
+   "texto": "[dev] Combinado, Inês! O técnico VOA passa na 2ª feira às 10h para trocar o filtro. ✅",
+   "dia": 17,
+   "data": "2026-11-29"
+  },
+  {
+   "cliente_id": "c7",
+   "regua": "cobranca",
+   "chave": "cobranca_d7",
+   "texto": "[dev] Último aviso, Sofia: regularize a mensalidade do APOLLO para manter o serviço. https://pagamento.exemplo/voa (SIMULADO)",
+   "dia": 19,
+   "data": "2026-12-01"
+  },
+  {
+   "cliente_id": "c1",
+   "regua": "teste",
+   "chave": "teste_d21",
+   "texto": "[dev] Ana, faltam 7 dias para terminar o seu mês grátis do APOLLO (termina a 10/12/2026).",
+   "dia": 21,
+   "data": "2026-12-03"
+  },
+  {
+   "cliente_id": "c3",
+   "regua": "teste",
+   "chave": "teste_d28",
+   "texto": "[dev] Último dia do seu mês grátis, Marta!\nPara continuar com o APOLLO por 1€/dia*, responda SIM.\n*condições em voa.com.pt",
+   "dia": 21,
+   "data": "2026-12-03"
+  },
+  {
+   "cliente_id": "c8",
+   "regua": "filtro",
+   "chave": "filtro_aviso",
+   "texto": "[dev] Olá Tiago, está quase na hora de trocar o filtro do seu APOLLO. Escolha um horário:\n1) 2ª feira 10h\n2) 3ª feira 15h\n3) 5ª feira 11h",
+   "dia": 21,
+   "data": "2026-12-03"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+  "data_inicio_demo": "2026-11-12",
+  "teste": {"dias": [0, 7, 21, 28]},
+  "filtro": {"meses_troca": 12, "aviso_dias_antes": 7, "_obs": "confirmar com a VOA"},
+  "cobranca": {"dias_apos_falha": [0, 3, 7], "_obs": "confirmar com a VOA"},
+  "envio": {"instancia": "rafael-business", "owner_esperado": "351910000001", "destino_unico": "351910000002", "_obs_envio": "valores reais em config.local.json (fora do git)"},
+  "servidor": {"porta": 8792, "hosts": ["127.0.0.1"]}
+}

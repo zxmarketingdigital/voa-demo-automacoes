@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#235560">
+  <title>VOΛ · Automações</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23235560'/%3E%3Cpath d='M16 6c-4 6-7 9.5-7 13a7 7 0 0 0 14 0c0-3.5-3-7-7-13z' fill='%237CBEEE'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #7CBEEE; --petrol: #235560; --turquoise: #1ca7b2; --deep: #123f48;
+      --test: var(--turquoise); --filter: var(--blue); --billing: var(--petrol);
+      --test-ink: #087780; --filter-ink: #28638e; --billing-ink: #235560;
+      --test-soft: #e4f5f4; --filter-soft: #eaf4fc; --billing-soft: #e9f0f1;
+      --background: #f3f8fa; --paper: #fff; --ink: #153f48; --muted: #547078;
+      --line: #dce9ed; --soft: #f5f9fa; --amber: #84530e; --amber-soft: #fff6e5;
+      --danger: #a13232; --radius: 20px; --shadow: 0 12px 40px #123f4809;
+      --text-font: 'Inter', sans-serif; --display-font: 'Manrope', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+    body { margin: 0; background: var(--background); color: var(--ink); font: 14px/1.5 var(--text-font); }
+    button, summary { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    button:disabled { cursor: default; opacity: .42; }
+    button:focus-visible, summary:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--test-ink); outline-offset: 4px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--display-font); }
+    svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .skip-link { position: absolute; left: 16px; top: -80px; z-index: 10; padding: 12px; background: white; border-radius: 8px; color: var(--deep); }
+    .skip-link:focus { top: 12px; }
+    .topbar { border-bottom: 1px solid var(--line); background: #ffffffda; }
+    .topbar-inner { max-width: 1544px; padding: 21px 32px; margin: auto; display: flex; align-items: center; gap: 25px; }
+    .logo { font: 800 38px/1 var(--display-font); letter-spacing: -3px; color: var(--petrol); }
+    .brand-divider { height: 30px; width: 1px; background: var(--line); }
+    h1 { font-size: 16px; font-weight: 650; letter-spacing: -.35px; }
+    .topbar-note { margin-left: auto; display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+    .water-mark { width: 24px; height: 28px; color: var(--test-ink); }
+    .shell { max-width: 1544px; margin: auto; padding: 30px 32px 24px; }
+    .overview { position: relative; overflow: hidden; padding: 26px 28px; background: linear-gradient(110deg, #fff 28%, #edf7fc 72%, #e4f4f6); border: 1px solid #dae9ee; border-radius: 24px; }
+    .overview::after { content: ''; position: absolute; pointer-events: none; width: 400px; height: 400px; border-radius: 46%; border: 1px solid #7cbeee30; right: -210px; top: -255px; box-shadow: 0 0 0 28px #7cbeee0b, 0 0 0 60px #7cbeee0b; transform: rotate(-15deg); }
+    .overview-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; position: relative; z-index: 1; }
+    .day-heading { display: flex; align-items: center; gap: 22px; }
+    .day-number { font: 800 48px/1.1 var(--display-font); letter-spacing: -2px; white-space: nowrap; }
+    .day-context { padding-left: 22px; border-left: 1px solid #cbdfe6; }
+    .day-context p:first-child { color: var(--muted); font-size: 12px; margin-bottom: 3px; }
+    .day-date { font-weight: 550; font-size: 14px; }
+    .day-nav { display: flex; align-items: center; gap: 8px; }
+    .nav-button { min-height: 44px; min-width: 76px; background: white; border: 1px solid #cbdfe6; padding: 10px 16px; border-radius: 11px; font-weight: 600; font-size: 13px; white-space: nowrap; transition: background .15s, border-color .15s; }
+    .nav-button:hover:enabled { background: var(--filter-soft); border-color: #a4c9d6; }
+    .nav-button.next { color: white; background: var(--petrol); border-color: var(--petrol); }
+    .nav-button.next:hover:enabled { background: var(--deep); }
+    .nav-button.reset { background: transparent; border-color: transparent; color: var(--muted); min-width: 60px; }
+    .counters { margin-top: 26px; padding-top: 22px; border-top: 1px solid #dce9ed; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; z-index: 1; }
+    .counter { display: flex; align-items: center; gap: 12px; padding: 0 22px; }
+    .counter + .counter { border-left: 1px solid #d3e5eb; }
+    .counter:first-child { padding-left: 0; border: 0; }
+    .counter-icon { height: 39px; width: 39px; display: grid; place-items: center; background: var(--regua-soft); color: var(--regua-ink); border-radius: 12px; flex-shrink: 0; }
+    .counter-number { font: 750 28px/1 var(--display-font); letter-spacing: -.9px; }
+    .counter-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .counter-label strong { display: block; font-weight: 600; color: var(--regua-ink); font-size: 13px; }
+    .regua-teste { --regua: var(--test); --regua-ink: var(--test-ink); --regua-soft: var(--test-soft); }
+    .regua-filtro { --regua: var(--filter); --regua-ink: var(--filter-ink); --regua-soft: var(--filter-soft); }
+    .regua-cobranca { --regua: var(--billing); --regua-ink: var(--billing-ink); --regua-soft: var(--billing-soft); }
+    .notice { margin-top: 14px; padding: 12px 16px; border-radius: 12px; background: var(--amber-soft); color: var(--amber); font-size: 13px; }
+    .mode-badge { display: inline-flex; align-items: center; gap: 7px; border: 1px solid #cfdee3; border-radius: 30px; padding: 5px 10px; font-size: 12px; color: var(--muted); background: #ffffffc9; }
+    .mode-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+    .workspace { display: grid; grid-template-columns: minmax(245px, .9fr) minmax(290px, 1.15fr) minmax(330px, 1.06fr); gap: 24px; margin-top: 30px; align-items: start; }
+    .workspace > * { min-width: 0; }
+    .section-heading { min-height: 53px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .section-heading h2 { font-size: 17px; font-weight: 750; letter-spacing: -.5px; }
+    .section-subtitle { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .count-badge { display: inline-grid; place-items: center; min-width: 26px; height: 26px; border: 1px solid var(--line); background: #ffffffb3; border-radius: 8px; font: 700 12px var(--display-font); }
+    .client-list { display: grid; gap: 9px; }
+    .client { position: relative; padding: 15px; width: 100%; text-align: left; border-radius: 14px; border: 1px solid var(--line); background: var(--paper); transition: border-color .15s, background .15s; }
+    .client:hover { border-color: #9bbfc8; }
+    .client[aria-pressed="true"] { background: #f0f9f9; border-color: var(--test-ink); box-shadow: inset 3px 0 var(--turquoise); }
+    .client-top { display: flex; gap: 10px; align-items: center; margin-bottom: 11px; }
+    .avatar { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 50%; background: #eaf2f6; color: var(--petrol); font: 750 12px var(--display-font); flex-shrink: 0; }
+    .client[aria-pressed="true"] .avatar { background: #d4eeec; }
+    .client-identity { min-width: 0; flex: 1; }
+    .client-name { display: block; font: 750 13px var(--display-font); }
+    .client-meta { display: block; font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .type-tag { font-size: 12px; border: 1px solid var(--line); color: var(--muted); padding: 2px 7px; border-radius: 6px; background: #ffffffa6; }
+    .client-states { display: grid; gap: 5px; }
+    .client-state { display: flex; align-items: baseline; gap: 6px; font-size: 12px; color: var(--muted); }
+    .state-dot { align-self: center; width: 5px; height: 5px; border-radius: 50%; background: var(--regua); flex-shrink: 0; }
+    .state-name { width: 47px; flex-shrink: 0; color: var(--regua-ink); font-weight: 600; }
+    .state-value { margin-left: auto; text-align: right; overflow-wrap: anywhere; }
+    .today-client .client-name::after { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--turquoise); margin-left: 7px; vertical-align: middle; }
+    .today-indicator { color: var(--test-ink); font-size: 12px; display: flex; align-items: center; gap: 5px; padding-top: 5px; white-space: nowrap; }
+    .today-indicator::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--turquoise); }
+    .timeline { position: relative; display: grid; gap: 12px; padding-left: 20px; }
+    .timeline::before { content: ''; position: absolute; left: 4px; top: 21px; bottom: 22px; width: 1px; background: #cfdee4; }
+    .event { position: relative; width: 100%; border: 1px solid var(--line); border-radius: 15px; background: var(--paper); padding: 17px; text-align: left; transition: border-color .15s, transform .15s; }
+    .event::before { content: ''; position: absolute; left: -21px; top: 24px; width: 9px; height: 9px; background: var(--regua); border: 2px solid var(--background); border-radius: 50%; box-shadow: 0 0 0 1px var(--regua); }
+    .event:hover { border-color: #93b8c2; transform: translateX(2px); }
+    .event[aria-pressed="true"] { border-color: #9fcacb; }
+    .event-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .event-name { font: 750 13px var(--display-font); }
+    .event-arrow { font-size: 18px; color: var(--muted); }
+    .chip { display: inline-block; border-radius: 5px; padding: 3px 7px; background: var(--regua-soft); color: var(--regua-ink); font-size: 12px; font-weight: 650; line-height: 1.4; }
+    .event .chip { margin-top: 7px; }
+    .event-title { display: block; margin-top: 12px; font-weight: 600; font-size: 12px; }
+    .event-preview { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: var(--muted); margin-top: 5px; line-height: 1.65; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .history { margin-top: 25px; border-top: 1px solid var(--line); padding-top: 18px; }
+    .history summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; min-height: 44px; gap: 8px; font-family: var(--display-font); font-size: 13px; font-weight: 700; }
+    .history summary::-webkit-details-marker { display: none; }
+    .history summary::after { content: '+'; font: 400 23px var(--display-font); color: var(--muted); }
+    .history[open] summary::after { content: '−'; }
+    .history-day { margin: 20px 0 12px; font-size: 12px; color: var(--muted); font-weight: 600; }
+    .history .event { padding: 13px; }
+    .history .event-title { margin-top: 8px; }
+    .history .event-preview { -webkit-line-clamp: 2; }
+    .empty { text-align: center; padding: 38px 22px; color: var(--muted); font-size: 13px; line-height: 1.8; border: 1px dashed #c8dce3; border-radius: 15px; background: #ffffff8c; }
+    .empty svg { display: block; margin: 0 auto 12px; width: 29px; height: 29px; color: var(--test-ink); }
+    .conversation { position: sticky; top: 22px; }
+    .conversation .section-heading { align-items: flex-start; }
+    .selected-name { font-weight: 600; color: var(--petrol); }
+    .phone { padding: 8px; border-radius: 36px; background: #fdfefe; border: 1px solid #b7cdd5; box-shadow: 0 20px 50px #123f4810, inset 0 0 0 3px #edf3f5; }
+    .phone-screen { overflow: hidden; border-radius: 28px; background: #eef4f2; }
+    .phone-status { display: flex; align-items: center; justify-content: space-between; height: 32px; padding: 0 20px; background: white; font: 750 12px var(--display-font); }
+    .device-icons { display: flex; align-items: center; gap: 5px; }
+    .device-icons svg { width: 13px; height: 13px; }
+    .phone-header { padding: 13px 15px; background: white; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #d9e7e7; }
+    .phone-back { color: var(--petrol); width: 17px; }
+    .voa-avatar { width: 39px; height: 39px; border: 1px solid #cde8ea; background: linear-gradient(145deg, #e8f5ff, #def4ef); border-radius: 50%; display: grid; place-items: center; font: 800 13px var(--display-font); letter-spacing: -1px; }
+    .phone-contact { flex: 1; }
+    .phone-contact strong { font: 800 14px var(--display-font); display: block; }
+    .online { font-size: 12px; color: var(--test-ink); }
+    .phone-header > svg:last-child { width: 19px; color: var(--petrol); }
+    .chat { height: min(560px, calc(100dvh - 265px)); min-height: 310px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #b4cdcc transparent; padding: 17px 13px 24px; background-color: #eff5f3; background-image: radial-gradient(ellipse at 0% 20%, #d8ece960, transparent 65%), radial-gradient(ellipse at 100% 90%, #dcedf77d, transparent 65%); }
+    .chat-intro { margin: 0 auto 15px; padding: 6px 10px; width: fit-content; max-width: 100%; text-align: center; font-size: 12px; line-height: 1.5; color: #52716f; border-radius: 7px; background: #ffffffb0; }
+    .chat-day { margin: 20px auto 13px; width: fit-content; border: 1px solid #d9e5e2; border-radius: 7px; padding: 4px 9px; background: #ffffffcf; color: var(--muted); font-size: 12px; }
+    .message { position: relative; width: 94%; margin: 0 0 13px auto; padding: 12px; border-radius: 13px 3px 13px 13px; border: 1px solid #d6e7e0; background: #fff; box-shadow: 0 2px 3px #123f4803; overflow-wrap: anywhere; }
+    .message.is-today { background: #fafffe; border-color: #91c9c4; box-shadow: inset 2px 0 #1ca7b2; }
+    .message .chip { font-size: 12px; padding: 2px 6px; margin-bottom: 8px; }
+    .message-text { white-space: pre-wrap; font-size: 12px; line-height: 1.75; color: #254b50; }
+    .message-time { display: block; text-align: right; color: var(--muted); font-size: 12px; margin-top: 6px; }
+    .send-button { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: 44px; margin-top: 9px; border: 1px solid #bedbd5; border-radius: 8px; background: #edf7f3; color: #286259; font-size: 12px; font-weight: 650; }
+    .send-button:hover:enabled { background: #dff0e9; }
+    .send-button svg { width: 13px; height: 13px; }
+    .send-status { margin-top: 6px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+    .send-status:empty { display: none; }
+    .send-status.delivered { color: #08726a; }
+    .send-status.unconfirmed { color: var(--amber); }
+    .send-status.error { color: var(--danger); }
+    .phone-footer { min-height: 40px; display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); background: #fff; border-top: 1px solid #dce9e5; }
+    .phone-footer svg { width: 12px; height: 12px; }
+    .phone-home { height: 4px; width: 88px; border-radius: 5px; background: #cad7d9; margin: 10px auto 2px; }
+    .conversation-hint { text-align: center; font-size: 12px; margin: 12px 4px 0; color: var(--muted); }
+    .footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 17px; margin-top: 30px; font-size: 12px; color: var(--muted); gap: 12px; }
+    .keyboard-hint kbd { font: inherit; border: 1px solid #cbdce2; background: #fff; border-radius: 4px; padding: 1px 5px; margin-left: 4px; }
+    .loading { padding: 75px 20px; text-align: center; color: var(--muted); }
+    .loading::before { content: ''; display: block; width: 26px; height: 26px; border: 2px solid #cfe4e9; border-top-color: var(--turquoise); border-radius: 50%; margin: 0 auto 18px; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fatal { padding: 50px 24px; margin: 30px auto; max-width: 650px; text-align: center; background: white; border: 1px solid var(--line); border-radius: var(--radius); }
+    .fatal h2 { margin-bottom: 12px; font-size: 23px; }
+    .fatal p { color: var(--muted); overflow-wrap: anywhere; margin-bottom: 22px; }
+    @media (min-width: 1500px) { .workspace { gap: 30px; grid-template-columns: 310px minmax(340px, 1fr) 388px; } }
+    @media (max-width: 1099px) {
+      .shell { padding: 24px; } .topbar-inner { padding: 20px 24px; }
+      .workspace { grid-template-columns: minmax(0, 1fr) minmax(310px, 1fr); gap: 26px; }
+      .clients-section { grid-column: 1 / -1; grid-row: 2; }
+      .client-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .conversation { position: static; } .chat { height: 510px; }
+      .overview-top { align-items: flex-start; } .day-heading { display: block; }
+      .day-context { border: 0; padding: 10px 0 0; } .day-context p:first-child { display: none; }
+      .day-nav { padding-top: 3px; } .counter { padding: 0 14px; gap: 9px; }
+      .counter-icon { display: none; } .counter-label strong { font-size: 12px; }
+    }
+    @media (max-width: 699px) {
+      .topbar-inner { padding: 18px 16px; gap: 15px; } .logo { font-size: 33px; }
+      .brand-divider { height: 27px; } h1 { font-size: 12px; line-height: 1.5; max-width: 190px; }
+      .topbar-note { display: none; } .shell { padding: 20px 16px; }
+      .overview { padding: 21px 17px 19px; border-radius: 20px; }
+      .overview-top { display: block; } .day-heading { display: flex; gap: 15px; }
+      .day-number { font-size: 38px; letter-spacing: -1.5px; }
+      .day-context { padding: 0 0 0 14px; flex: 1; } .day-date { font-size: 12px; line-height: 1.7; }
+      .day-nav { margin-top: 19px; padding: 0; gap: 7px; }
+      .nav-button { flex: 1; padding: 11px 10px; min-width: 0; font-size: 12px; }
+      .nav-button.reset { min-width: 0; flex: .7; }
+      .counters { margin-top: 20px; padding-top: 18px; }
+      .counter { padding: 0 12px; gap: 6px; display: block; }
+      .counter:last-child { padding-right: 0; } .counter-number { font-size: 25px; }
+      .counter-label { margin-top: 6px; font-size: 12px; } .counter-label strong { font-size: 12px; min-height: 29px; line-height: 1.4; }
+      .workspace { display: flex; flex-direction: column; gap: 28px; margin-top: 25px; }
+      .workspace > section { width: 100%; } .conversation { order: 0; scroll-margin-top: 16px; }
+      .timeline-section { order: 1; } .clients-section { order: 2; }
+      .section-heading { min-height: 54px; } .section-heading h2 { font-size: 16px; }
+      .phone { border-radius: 25px; padding: 4px; box-shadow: 0 10px 25px #123f4808; }
+      .phone-screen { border-radius: 21px; } .phone-status { height: 27px; }
+      .phone-header { padding: 12px; } .chat { height: 470px; min-height: 300px; padding: 14px 11px 20px; }
+      .message-text { font-size: 12px; } .phone-home { margin-top: 8px; margin-bottom: 3px; }
+      .conversation-hint { font-size: 12px; } .client-list { grid-template-columns: 1fr; }
+      .client { padding: 16px; } .client-name { font-size: 14px; } .client-meta { font-size: 12px; }
+      .client-state { font-size: 12px; gap: 8px; } .state-name { width: 50px; }
+      .footer { font-size: 12px; margin-top: 25px; } .keyboard-hint { display: none; }
+      .mode-badge { font-size: 12px; padding: 5px 8px; } .notice { font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conversation">Ir para a conversa</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="logo" aria-label="VOA">VOΛ</span><span class="brand-divider" aria-hidden="true"></span>
+      <h1>Automações de receita recorrente</h1>
+      <span class="topbar-note"><svg class="water-mark" aria-hidden="true" viewBox="0 0 24 28"><path d="M12 2C9 7 3 12 3 17a9 9 0 0 0 18 0c0-5-6-10-9-15Z"/><path d="M7 17a5 5 0 0 0 5 5"/></svg>Uma relação que continua.</span>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <section class="overview" aria-label="Dia da simulação">
+      <div class="overview-top">
+        <div class="day-heading"><p class="day-number" id="day-number">Dia 0</p><div class="day-context"><p>A acompanhar a relação com cada cliente</p><p class="day-date" id="day-date">A carregar a demonstração…</p></div></div>
+        <nav class="day-nav" aria-label="Navegar entre os dias">
+          <button class="nav-button" id="previous-day" type="button" aria-label="Voltar um dia" disabled>← dia</button>
+          <button class="nav-button next" id="next-day" type="button" aria-label="Avançar um dia">dia →</button>
+          <button class="nav-button reset" id="reset-day" type="button" aria-label="Voltar ao dia zero">dia 0</button>
+        </nav>
+      </div>
+      <div class="counters" aria-label="Mensagens do dia">
+        <div class="counter regua-teste"><div class="counter-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c-3 4-7 8-7 12a7 7 0 0 0 14 0c0-4-4-8-7-12Z"/><path d="M9 16a3 3 0 0 0 3 3"/></svg></div><span class="counter-number" id="count-teste">0</span><p class="counter-label"><strong>Mês grátis APOLLO</strong>mensagens hoje</p></div>
+        <div class="counter regua-filtro"><div class="counter-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10v18H7zM7 8h10M7 16h10M10 5.5h4M10 18.5h4"/></svg></div><span class="counter-number" id="count-filtro">0</span><p class="counter-label"><strong>Filtro e manutenção</strong>avisos de visita hoje</p></div>
+        <div class="counter regua-cobranca"><div class="counter-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></svg></div><span class="counter-number" id="count-cobranca">0</span><p class="counter-label"><strong>Cobrança do aluguer</strong>lembretes de pagamento hoje</p></div>
+      </div>
+    </section>
+    <p class="notice" id="notice" role="status" hidden></p>
+    <div class="loading" id="loading" role="status">A carregar os clientes e as mensagens…</div>
+    <section class="fatal" id="fatal" role="alert" hidden><h2>Não foi possível carregar o painel</h2><p id="fatal-reason"></p><button type="button" class="nav-button" id="retry">Voltar a carregar</button></section>
+    <div class="workspace" id="workspace" hidden>
+      <section class="clients-section" aria-labelledby="clients-title">
+        <div class="section-heading"><div><h2 id="clients-title">Os seus clientes</h2><p class="section-subtitle">Cada relação, no momento certo.</p></div><span class="count-badge" id="client-count">0</span></div>
+        <div class="client-list" id="client-list"></div>
+      </section>
+      <section class="timeline-section" aria-labelledby="timeline-title">
+        <div class="section-heading"><div><h2 id="timeline-title">Acontece hoje</h2><p class="section-subtitle" id="timeline-subtitle">Mensagens preparadas para este dia</p></div><span class="today-indicator">Neste dia</span></div>
+        <div id="today-list"></div>
+        <details class="history" id="history"><summary><span id="history-label">Dias anteriores</span></summary><div id="history-list"></div></details>
+      </section>
+      <section class="conversation" id="conversation" aria-labelledby="conversation-title" tabindex="-1">
+        <div class="section-heading"><div><h2 id="conversation-title">Do lado do cliente</h2><p class="section-subtitle" id="selected-client">Selecione um cliente</p></div><span class="count-badge" id="conversation-count" aria-label="Mensagens na conversa">0</span></div>
+        <div class="phone"><div class="phone-screen">
+          <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="device-icons"><svg viewBox="0 0 20 18"><path d="M2 15v-3M6 15V9M10 15V6M14 15V3"/></svg><svg viewBox="0 0 20 18"><path d="M2 6a13 13 0 0 1 16 0M5 9a8 8 0 0 1 10 0M8 12a3 3 0 0 1 4 0M10 15h0"/></svg><svg viewBox="0 0 24 18"><rect x="2" y="4" width="18" height="10" rx="2"/><path d="M22 7v4M5 7h12v4H5z"/></svg></span></div>
+          <div class="phone-header"><svg class="phone-back" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span class="voa-avatar" aria-hidden="true">VOΛ</span><div class="phone-contact"><strong>VOA</strong><span class="online">online</span></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 4 6c-1 6 8 15 14 14l2-3-5-3-2 2a12 12 0 0 1-5-5l2-2-3-5Z"/></svg></div>
+          <div class="chat" id="chat" role="region" aria-label="Pré-visualização da conversa de WhatsApp" tabindex="0"></div>
+          <div class="phone-footer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="10" width="12" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pré-visualização · horários ilustrativos</div>
+        </div><div class="phone-home" aria-hidden="true"></div></div>
+        <p class="conversation-hint">Selecione um cliente para acompanhar a sua conversa.</p>
+      </section>
+    </div>
+    <footer class="footer"><span>VOΛ · Demonstração com clientes fictícios</span><span class="mode-badge" id="static-badge" hidden>Modo demonstração (sem envio)</span><span class="keyboard-hint">Mudar de dia <kbd>←</kbd><kbd>→</kbd></span></footer>
+  </main>
+  <script>
+    'use strict';
+    (() => {
+      // Estado: navegação e envios têm ciclos independentes.
+      const params = new URLSearchParams(location.search);
+      const validDay = value => Number.isInteger(value) && value >= 0 && value <= 60;
+      const initial = params.get('dia');
+      const initialDay = initial !== null && /^\d+$/.test(initial) && validDay(Number(initial)) ? Number(initial) : 0;
+      const state = { day: initialDay, target: initialDay, data: null, selected: null,
+        static: params.get('estatico') === '1' || document.querySelector('meta[name="voa-modo"]')?.content === 'estatico', staticPromise: null, staticStarted: false,
+        request: 0, sends: loadSends(), conversationRender: 0 };
+      // Estado de envio sobrevive a recarregar (só entregue/ambíguo), para nunca reenviar sem confirmação.
+      function loadSends() {
+        const map = new Map();
+        try {
+          const saved = JSON.parse(sessionStorage.getItem('voa-envios') || '{}');
+          for (const [key, value] of Object.entries(saved)) {
+            if (value && typeof value === 'object' && typeof value.text === 'string') {
+              map.set(key, { busy: false, phase: 'done', text: value.text, tone: value.delivered ? 'delivered' : 'unconfirmed',
+                delivered: value.delivered === true, maybeSent: value.maybeSent === true });
+            }
+          }
+        } catch { /* Sem armazenamento: fica só em memória. */ }
+        return map;
+      }
+      function saveSends() {
+        try {
+          const out = {};
+          for (const [key, value] of state.sends) {
+            if (value.delivered || value.maybeSent) out[key] = { text: value.text, delivered: value.delivered === true, maybeSent: value.maybeSent === true };
+          }
+          sessionStorage.setItem('voa-envios', JSON.stringify(out));
+        } catch { /* Ignorar. */ }
+      }
+      const rules = {
+        teste: { name: 'Mês grátis APOLLO', short: 'Teste' },
+        filtro: { name: 'Filtro e manutenção', short: 'Filtro' },
+        cobranca: { name: 'Cobrança do aluguer', short: 'Aluguer' }
+      };
+      const labels = {
+        teste_d0: 'Boas-vindas', teste_d7: 'Check-in 7 dias', teste_d21: 'Faltam 7 dias', teste_d28: 'Último dia',
+        filtro_aviso: 'Aviso de troca', filtro_confirmacao: 'Horário confirmado', filtro_upsell_shower: 'Sugestão SHOWER ATHENA',
+        cobranca_d0: 'Falha de pagamento', cobranca_d3: 'Lembrete', cobranca_d7: 'Último aviso'
+      };
+      const $ = id => document.getElementById(id);
+      const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      };
+      const identity = event => JSON.stringify([event.cliente_id, event.chave, event.dia]);
+      const title = event => Object.hasOwn(labels, event.chave) ? labels[event.chave] : event.chave;
+      const dateObject = date => new Date(date + 'T12:00:00Z');
+      const shortDate = date => new Intl.DateTimeFormat('pt-PT', { day: '2-digit', month: '2-digit', timeZone: 'UTC' }).format(dateObject(date));
+      const fullDate = date => new Intl.DateTimeFormat('pt-PT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(dateObject(date));
+      const dayLabel = event => `Dia ${event.dia} · ${shortDate(event.data)}`;
+      const customer = id => state.data.clientes.find(client => client.id === id);
+      const chip = rule => el('span', `chip regua-${rule}`, rules[rule].name);
+      const svgMarkup = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5a9 9 0 1 1 16.2-4.5Z"/><path d="M8 10h8M8 14h5"/></svg>';
+      function empty(text) {
+        const node = el('div', 'empty');
+        node.innerHTML = svgMarkup; // Apenas desenho estático, sem dados da API.
+        node.append(el('p', '', text));
+        return node;
+      }
+      function notice(text = '') {
+        $('notice').textContent = text;
+        $('notice').hidden = !text;
+      }
+      function updateURL() {
+        const url = new URL(location.href);
+        url.searchParams.set('dia', String(state.day));
+        history.replaceState(null, '', url);
+      }
+      function navigation() {
+        $('previous-day').disabled = state.target <= 0;
+        $('next-day').disabled = state.target >= 60;
+        $('reset-day').disabled = state.target === 0;
+      }
+
+      // API: alternativa definitiva com um único carregamento do ficheiro estático.
+      async function getJSON(url, options = {}, timeout = 10000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+          const response = await fetch(url, { ...options, signal: controller.signal });
+          if (response.status !== 200) throw new Error(`Resposta HTTP ${response.status}`);
+          try { return await response.json(); }
+          catch { throw new Error('O servidor devolveu um JSON inválido'); }
+        } finally { clearTimeout(timer); }
+      }
+      function validate(raw) {
+        if (!raw || !validDay(raw.dia) || !/^\d{4}-\d{2}-\d{2}$/.test(raw.data) ||
+            Number.isNaN(dateObject(raw.data).getTime()) || !Array.isArray(raw.clientes) ||
+            !Array.isArray(raw.eventos) || !Array.isArray(raw.linha_do_tempo)) throw new Error('Formato dos dados inválido');
+        const ids = new Set();
+        for (const client of raw.clientes) {
+          if (!client || typeof client.id !== 'string' || ids.has(client.id) ||
+              !['nome', 'cidade', 'produto', 'tipo'].every(key => typeof client[key] === 'string')) throw new Error('Dados de clientes inválidos');
+          ids.add(client.id);
+        }
+        const normalize = (event, historical) => {
+          if (!event || !ids.has(event.cliente_id) || !Object.hasOwn(rules, event.regua) ||
+              typeof event.chave !== 'string' || typeof event.texto !== 'string') throw new Error('Dados de mensagens inválidos');
+          const day = event.dia === undefined && !historical ? raw.dia : event.dia;
+          const date = event.data === undefined && !historical ? raw.data : event.data;
+          if (!validDay(day) || typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+              Number.isNaN(dateObject(date).getTime())) throw new Error('Dia da mensagem inválido');
+          return { ...event, dia: day, data: date };
+        };
+        const today = raw.eventos.map(event => normalize(event, false)).filter(event => event.dia === raw.dia);
+        const events = new Map();
+        for (const event of [...raw.linha_do_tempo.map(event => normalize(event, true)), ...today]) {
+          if (event.dia <= raw.dia) events.set(identity(event), event);
+        }
+        return { ...raw, eventos: today, linha_do_tempo: [...events.values()].sort((a, b) => a.dia - b.dia) };
+      }
+      function staticSource() {
+        const source = params.get('fonte') || 'demo-estatica.json';
+        // Só caminhos relativos simples (letras, números, _ - . /), sem '..' nem '//', e na mesma origem.
+        const resolved = /^[A-Za-z0-9_-][A-Za-z0-9_.\/-]*$/.test(source) && !source.includes('..') && !source.includes('//')
+          ? new URL(source, location.href) : null;
+        if (!resolved || resolved.origin !== location.origin) {
+          throw new Error('Fonte de demonstração inválida: utilize um caminho relativo simples, como dev/ficheiro.json');
+        }
+        return source;
+      }
+      function staticData() {
+        if (!state.staticPromise) state.staticPromise = (async () => {
+          const raw = await getJSON(staticSource());
+          if (raw && Array.isArray(raw.clientes) && Object.hasOwn(raw, 'dia')) {
+            const data = validate(raw);
+            return { days: { [data.dia]: data }, singleDay: data.dia };
+          }
+          if (!raw || Array.isArray(raw) || typeof raw !== 'object' || !Object.keys(raw).length) throw new Error('Ficheiro de demonstração vazio ou inválido');
+          const days = {};
+          for (const [key, value] of Object.entries(raw)) {
+            if (!/^\d+$/.test(key) || !validDay(Number(key))) throw new Error('Dia inválido no ficheiro de demonstração');
+            days[Number(key)] = validate(value);
+            if (days[Number(key)].dia !== Number(key)) throw new Error('Dias inconsistentes no ficheiro de demonstração');
+          }
+          return { days, singleDay: null };
+        })();
+        return state.staticPromise;
+      }
+      async function loadDay(day) {
+        if (!validDay(day)) return;
+        const request = ++state.request;
+        state.target = day;
+        navigation();
+        notice();
+        $('workspace').setAttribute('aria-busy', 'true');
+        let apiError = '';
+        let data;
+        if (!state.static) {
+          try {
+            data = validate(await getJSON(`/api/estado?dia=${day}`));
+            if (data.dia !== day) throw new Error('O servidor devolveu um dia diferente do pedido');
+          } catch (error) {
+            if (request !== state.request) return;
+            apiError = error.name === 'AbortError' ? 'Tempo de espera do servidor excedido' : error.message;
+            state.static = true;
+            $('static-badge').hidden = false;
+            $('static-badge').textContent = 'Modo demonstração (sem envio) · servidor indisponível';
+            $('static-badge').title = `Servidor: ${apiError}`;
+            renderConversation(); // O modo estático desativa imediatamente qualquer novo envio.
+          }
+        }
+        if (request !== state.request) return;
+        if (state.static) {
+          try {
+            const stored = await staticData();
+            if (request !== state.request) return;
+            if (!state.staticStarted && stored.singleDay !== null) day = stored.singleDay;
+            state.staticStarted = true;
+            data = stored.days[day];
+            if (!data) {
+              state.target = state.day;
+              navigation();
+              $('workspace').setAttribute('aria-busy', 'false');
+              if (!state.data) throw new Error(`Dia ${day} indisponível no modo de demonstração`);
+              notice(`Dia ${day} indisponível no modo de demonstração`);
+              return;
+            }
+          } catch (error) {
+            if (request !== state.request) return;
+            state.target = state.day;
+            navigation();
+            $('workspace').hidden = true;
+            $('workspace').setAttribute('aria-busy', 'false');
+            $('loading').hidden = true;
+            $('fatal').hidden = false;
+            $('fatal-reason').textContent = `${apiError ? `Servidor: ${apiError}. ` : ''}Demonstração: ${error.message}. Verifique a ligação ou o ficheiro de demonstração e volte a carregar.`;
+            return;
+          }
+        }
+        if (request !== state.request) return;
+        state.data = data;
+        state.day = data.dia;
+        state.target = data.dia;
+        if (!data.clientes.some(client => client.id === state.selected)) {
+          state.selected = data.eventos[0]?.cliente_id || data.clientes[0]?.id || null;
+        }
+        $('loading').hidden = true;
+        $('fatal').hidden = true;
+        $('workspace').hidden = false;
+        $('workspace').setAttribute('aria-busy', 'false');
+        updateURL();
+        render();
+      }
+
+      // Render: todos os dados são nós de texto.
+      function render() {
+        $('day-number').textContent = `Dia ${state.day}`;
+        $('day-date').textContent = fullDate(state.data.data);
+        $('static-badge').hidden = !state.static;
+        for (const rule of Object.keys(rules)) $('count-' + rule).textContent = state.data.eventos.filter(event => event.regua === rule).length;
+        $('client-count').textContent = state.data.clientes.length;
+        const total = state.data.eventos.length;
+        $('timeline-subtitle').textContent = `${total} ${total === 1 ? 'mensagem preparada para este dia' : 'mensagens preparadas para este dia'}`;
+        navigation();
+        renderClients();
+        renderTimeline();
+        renderConversation();
+      }
+      function selectClient(id, eventKey = null) {
+        state.selected = id;
+        renderClients();
+        renderTimeline();
+        renderConversation(eventKey);
+        if (matchMedia('(max-width: 699px)').matches) {
+          $('conversation').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+        }
+      }
+      function renderClients() {
+        const fragment = document.createDocumentFragment();
+        for (const client of state.data.clientes) {
+          const today = state.data.eventos.some(event => event.cliente_id === client.id);
+          const button = el('button', 'client' + (today ? ' today-client' : ''));
+          button.type = 'button';
+          button.setAttribute('aria-pressed', String(state.selected === client.id));
+          button.setAttribute('aria-label', `${client.nome}, ${client.cidade}, ${client.produto}, ${client.tipo === 'teste' ? 'Teste' : 'Aluguer'}${today ? ', com mensagem hoje' : ''}`);
+          const top = el('span', 'client-top');
+          const avatar = el('span', 'avatar', client.nome.split(/\s+/).filter(Boolean).map(part => Array.from(part)[0]).slice(0, 2).join(''));
+          avatar.setAttribute('aria-hidden', 'true');
+          const info = el('span', 'client-identity');
+          info.append(el('span', 'client-name', client.nome), el('span', 'client-meta', `${client.cidade} · ${client.produto}`));
+          top.append(avatar, info, el('span', 'type-tag', client.tipo === 'teste' ? 'Teste' : 'Aluguer'));
+          const states = el('span', 'client-states');
+          for (const [rule, meta] of Object.entries(rules)) {
+            const events = state.data.linha_do_tempo.filter(event => event.cliente_id === client.id && event.regua === rule);
+            const last = events[events.length - 1];
+            const row = el('span', `client-state regua-${rule}`);
+            row.title = meta.name;
+            row.append(el('span', 'state-dot'), el('span', 'state-name', meta.short), el('span', 'state-value', last ? `${title(last)} · dia ${last.dia}` : (rule === 'cobranca' ? 'sem pendentes' : '—')));
+            states.append(row);
+          }
+          button.append(top, states);
+          button.addEventListener('click', () => selectClient(client.id));
+          fragment.append(button);
+        }
+        $('client-list').replaceChildren(fragment);
+      }
+      function eventCard(event) {
+        const button = el('button', `event regua-${event.regua}`);
+        button.type = 'button';
+        button.setAttribute('aria-pressed', String(state.selected === event.cliente_id));
+        const name = customer(event.cliente_id)?.nome || event.cliente_id;
+        button.setAttribute('aria-label', `Ver conversa de ${name}: ${title(event)}, dia ${event.dia}`);
+        const top = el('span', 'event-top');
+        const arrow = el('span', 'event-arrow', '↗');
+        arrow.setAttribute('aria-hidden', 'true');
+        top.append(el('span', 'event-name', name), arrow);
+        button.append(top, chip(event.regua), el('span', 'event-title', title(event)), el('span', 'event-preview', event.texto));
+        button.addEventListener('click', () => selectClient(event.cliente_id, identity(event)));
+        return button;
+      }
+      function renderTimeline() {
+        const today = $('today-list');
+        today.className = state.data.eventos.length ? 'timeline' : '';
+        today.replaceChildren(...(state.data.eventos.length ? state.data.eventos.map(eventCard) : [empty('Nenhuma mensagem hoje. Avance um dia.')]));
+        const previous = state.data.linha_do_tempo.filter(event => event.dia < state.day).sort((a, b) => b.dia - a.dia);
+        $('history-label').textContent = `Dias anteriores (${previous.length})`;
+        const history = document.createDocumentFragment();
+        let day = null;
+        let group;
+        for (const event of previous) {
+          if (day !== event.dia) {
+            day = event.dia;
+            history.append(el('h3', 'history-day', dayLabel(event)));
+            group = el('div', 'timeline');
+            history.append(group);
+          }
+          group.append(eventCard(event));
+        }
+        if (!previous.length) history.append(empty('As mensagens dos dias anteriores aparecem aqui.'));
+        $('history-list').replaceChildren(history);
+      }
+      function renderConversation(eventKey = null) {
+        if (!state.data) return;
+        const client = customer(state.selected);
+        $('selected-client').textContent = client ? `${client.nome} · ${client.cidade}` : 'Selecione um cliente';
+        const events = state.data.linha_do_tempo.filter(event => event.cliente_id === state.selected && event.dia <= state.day);
+        $('conversation-count').textContent = events.length;
+        const fragment = document.createDocumentFragment();
+        fragment.append(el('p', 'chat-intro', client ? `Conversa de ${client.nome}` : 'A sua conversa com a VOA'));
+        let day = null;
+        let target = null;
+        events.forEach((event, index) => {
+          if (day !== event.dia) { day = event.dia; fragment.append(el('p', 'chat-day', dayLabel(event))); }
+          const message = el('article', `message regua-${event.regua}${event.dia === state.day ? ' is-today' : ''}`);
+          message.dataset.messageKey = identity(event);
+          message.setAttribute('aria-label', `${title(event)}, dia ${event.dia}`);
+          message.append(chip(event.regua), el('p', 'message-text', event.texto), el('span', 'message-time', `09:${String((index * 7) % 60).padStart(2, '0')}`));
+          if (!state.static) {
+            const button = el('button', 'send-button');
+            button.type = 'button';
+            button.addEventListener('click', () => send(event));
+            const status = el('p', 'send-status');
+            status.setAttribute('role', 'status');
+            status.setAttribute('aria-live', 'polite');
+            status.setAttribute('aria-atomic', 'true');
+            message.append(button, status);
+            paintSend(message, event);
+          }
+          if (identity(event) === eventKey) target = message;
+          fragment.append(message);
+        });
+        if (!events.length) fragment.append(empty('Ainda não há mensagens para este cliente. A conversa começa quando chegar o momento certo.'));
+        $('chat').replaceChildren(fragment);
+        const version = ++state.conversationRender;
+        requestAnimationFrame(() => {
+          if (version !== state.conversationRender) return;
+          const chat = $('chat');
+          chat.scrollTop = target ? Math.max(0, chat.scrollTop + target.getBoundingClientRect().top - chat.getBoundingClientRect().top - 14) : chat.scrollHeight;
+        });
+      }
+
+      // Envio: uma operação por chave, preservada ao navegar.
+      function paintSend(message, event) {
+        const delivery = state.sends.get(identity(event));
+        const button = message.querySelector('.send-button');
+        const status = message.querySelector('.send-status');
+        if (!button || !status) return;
+        const busy = delivery?.busy || false;
+        // Entregue = botão bloqueado. Pedido que chegou (ou pode ter chegado) ao servidor = "Reenviar", com confirmação.
+        button.disabled = busy || state.static || delivery?.delivered === true;
+        button.textContent = delivery?.phase === 'sending' ? 'a enviar…'
+          : delivery?.phase === 'confirming' ? 'a confirmar…'
+          : delivery?.delivered ? 'Enviada ✓'
+          : delivery?.maybeSent && !busy ? 'Reenviar' : 'Enviar para o meu WhatsApp';
+        status.textContent = delivery?.text || '';
+        status.className = `send-status ${delivery?.tone || ''}`;
+      }
+      function refreshSend(event) {
+        for (const message of $('chat').querySelectorAll('[data-message-key]')) {
+          if (message.dataset.messageKey === identity(event)) paintSend(message, event);
+        }
+      }
+      const acknowledged = status => ['SERVER_ACK', 'DELIVERY_ACK', 'READ'].includes(status);
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+      async function send(event) {
+        const key = identity(event);
+        const previous = state.sends.get(key);
+        if (state.static || previous?.busy || previous?.delivered) return;
+        if (previous?.maybeSent && !window.confirm(`Esta mensagem pode já ter sido enviada (${previous.text}). Enviar outra vez?`)) return;
+        const delivery = { busy: true, phase: 'sending', text: '', tone: '', delivered: false, maybeSent: previous?.maybeSent === true };
+        state.sends.set(key, delivery);
+        refreshSend(event);
+        // Sem timeout no POST: abortar depois de o servidor já ter enviado esconderia um envio real.
+        const ambiguous = () => {
+          delivery.text = 'não confirmado (sem resposta do servidor; pode ter sido enviada)';
+          delivery.tone = 'unconfirmed'; delivery.maybeSent = true;
+        };
+        try {
+          let response;
+          try {
+            response = await fetch('/api/enviar', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ cliente_id: event.cliente_id, chave: event.chave, dia: event.dia }) });
+          } catch {
+            ambiguous(); return;
+          }
+          let raw;
+          try { raw = await response.text(); }
+          catch { ambiguous(); return; }
+          let body;
+          try { body = JSON.parse(raw); } catch { body = null; }
+          if (!response.ok) {
+            const reasonValue = body && typeof body === 'object' ? [body.motivo, body.erro, body.error, body.detail].find(value => value !== undefined && value !== null && value !== '') : null;
+            const reason = reasonValue === null || reasonValue === undefined ? '' : (typeof reasonValue === 'string' ? reasonValue : JSON.stringify(reasonValue));
+            // Bloqueio garantido antes do envio: 4xx de validação ou 503 do server.py com motivo em JSON.
+            const blocked = (response.status === 503 && reason) || (response.status >= 400 && response.status < 500 && ![408, 429].includes(response.status));
+            if (!blocked) {
+              delivery.text = `não confirmado (erro ${response.status}${reason ? `: ${reason}` : ''}; pode ter sido enviada)`;
+              delivery.tone = 'unconfirmed'; delivery.maybeSent = true; return;
+            }
+            delivery.text = `${response.status === 503 ? 'Envio bloqueado' : `Erro ao enviar (${response.status})`}: ${reason || 'Sem motivo indicado'}`;
+            delivery.tone = 'error'; return;
+          }
+          delivery.phase = 'confirming'; delivery.text = 'a confirmar…'; delivery.maybeSent = true;
+          refreshSend(event);
+          let last = typeof body?.status === 'string' ? body.status : 'desconhecido';
+          if (!body?.key_id || typeof body.key_id !== 'string') {
+            delivery.text = `não confirmado (${last})`; delivery.tone = 'unconfirmed'; return;
+          }
+          let confirmed = false;
+          for (let attempt = 0; attempt < 6; attempt++) {
+            if (attempt > 0) await delay(2500);
+            try {
+              const result = await getJSON(`/api/status?key_id=${encodeURIComponent(body.key_id)}`, {}, 7000);
+              last = typeof result?.status === 'string' ? result.status : 'desconhecido';
+              if (acknowledged(last)) { confirmed = true; break; }
+            } catch { /* Mantém o último estado conhecido até à próxima tentativa. */ }
+          }
+          delivery.text = confirmed ? 'entregue ✓' : `não confirmado (${last})`;
+          delivery.tone = confirmed ? 'delivered' : 'unconfirmed';
+          delivery.delivered = confirmed;
+        } catch {
+          delivery.text = 'não confirmado (desconhecido)'; delivery.tone = 'unconfirmed'; delivery.maybeSent = true;
+        } finally {
+          delivery.busy = false; delivery.phase = 'done';
+          saveSends();
+          refreshSend(event);
+        }
+      }
+
+      $('previous-day').addEventListener('click', () => loadDay(state.target - 1));
+      $('next-day').addEventListener('click', () => loadDay(state.target + 1));
+      $('reset-day').addEventListener('click', () => loadDay(0));
+      $('retry').addEventListener('click', () => location.reload());
+      document.addEventListener('keydown', event => {
+        if (!matchMedia('(min-width: 1100px)').matches || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+            event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])')) return;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault(); loadDay(state.target + (event.key === 'ArrowRight' ? 1 : -1));
+        }
+      });
+      $('day-number').textContent = `Dia ${initialDay}`;
+      $('static-badge').hidden = !state.static;
+      navigation();
+      loadDay(initialDay);
+    })();
+  </script>
+</body>
+</html>

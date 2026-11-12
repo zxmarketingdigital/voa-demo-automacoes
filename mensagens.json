@@ -1,0 +1,20 @@
+{
+  "_placeholders": {
+    "{nome}": "primeiro nome do cliente",
+    "{produto}": "produto do cliente (ex.: APOLLO)",
+    "{data}": "réguas teste_*: data de fim do mês grátis · filtro_*: data da troca do filtro · cobranca_*: data em que o pagamento falhou. Formato DD/MM.",
+    "{horario1}": "1.º horário proposto para a visita técnica (ex.: 'terça, 19/11, 10h00')",
+    "{horario2}": "2.º horário proposto",
+    "{horario3}": "3.º horário proposto"
+  },
+  "teste_d0": "Olá {nome}, bem-vindo à VOA! 💧 O seu {produto} já está instalado e o seu mês grátis começou hoje. Para tirar o máximo partido: beba um copo de água logo ao acordar e use-a também para cozinhar. O mês grátis termina a {data}. Qualquer dúvida, responda a esta mensagem e falamos consigo.",
+  "teste_d7": "Olá {nome}, já passou uma semana com o {produto}! 😊 Como está a correr? Já notou a diferença no sabor da água, no café ou no chá? Responda com uma nota de 1 a 5, e se alguma coisa não estiver perfeita, tratamos disso já.",
+  "teste_d21": "Olá {nome}, faltam 7 dias para terminar o seu mês grátis do {produto} (termina a {data}). Para continuar com água ionizada em casa, sem interrupção, basta responder SIM: fica com o aluguer por 1€/dia* e não precisa de fazer mais nada.\n\n*Condições do aluguer na proposta enviada pela VOA.",
+  "teste_d28": "Olá {nome}, hoje é o último dia do seu mês grátis do {produto}. 💧 Quer continuar? Responda SIM e o aluguer por 1€/dia* começa amanhã, sem visita nem papelada. Se preferir terminar, responda NÃO e combinamos a recolha do equipamento sem custos.\n\n*Condições do aluguer na proposta enviada pela VOA.",
+  "filtro_aviso": "Olá {nome}, o filtro do seu {produto} chega ao fim do ciclo a {data}. Para a sua água continuar com a mesma qualidade, a nossa equipa técnica faz a troca em casa. Escolha o horário que lhe dá mais jeito e responda só com o número:\n1️⃣ {horario1}\n2️⃣ {horario2}\n3️⃣ {horario3}",
+  "filtro_confirmacao": "Obrigado, {nome}! ✅ A troca do filtro do seu {produto} está marcada para {horario1}. O técnico da VOA leva o filtro novo e a visita demora cerca de 20 minutos. Se precisar de mudar o horário, responda a esta mensagem.",
+  "filtro_upsell_shower": "Olá {nome}, o filtro do seu {produto} foi trocado e está tudo a funcionar. 💧 Já que cuida da água que bebe, sabia que a água do duche também conta? O SHOWER ATHENA filtra o cloro do chuveiro e deixa a pele e o cabelo mais suaves. Quer que lhe enviemos os detalhes? Responda SIM.",
+  "cobranca_d0": "Olá {nome}, não conseguimos processar o pagamento do aluguer do seu {produto} de {data}. Acontece: muitas vezes é um cartão expirado. Pode regularizar em 1 minuto por aqui: https://voa.com.pt/pagamento-demo (link de demonstração). Se já tratou disto, ignore esta mensagem.",
+  "cobranca_d3": "Olá {nome}, lembrete rápido: o pagamento do aluguer do seu {produto} de {data} continua pendente. Pode pagar por aqui: https://voa.com.pt/pagamento-demo (link de demonstração). Se tiver alguma dificuldade, responda a esta mensagem e ajudamos.",
+  "cobranca_d7": "Olá {nome}, último aviso sobre o pagamento do aluguer do seu {produto} de {data}. Para manter o serviço e as trocas de filtro ativas, regularize hoje: https://voa.com.pt/pagamento-demo (link de demonstração). Se preferir falar com alguém da VOA, responda a esta mensagem e ligamos-lhe."
+}
